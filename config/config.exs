@@ -12,7 +12,10 @@ config :hello, HelloWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "+mQrTx2ZM4grNvGoVRqseR1+EBmVHZBrQb+mCIaPZbtxLv2ne6ap1iHvwwD9G9xt",
   render_errors: [view: HelloWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Hello.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Hello.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "NP2rjs0j"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -21,6 +24,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# enable LiveView templates
+config :phoenix, template_engines: [leex: Phoenix.LiveView.Engine]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
