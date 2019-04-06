@@ -1,4 +1,4 @@
-defmodule HelloWeb.SnakeView do
+defmodule HelloWeb.SnakeLive do
   use Phoenix.LiveView
 
   @tick 100

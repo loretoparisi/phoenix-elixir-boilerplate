@@ -1,3 +1,17 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+@import "./live_view.css";
+@import "./snake.css";
+
+pre{
+    padding: 1em;
+  }
+  .container.rainbow {
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  [data-phx-view]{
+    padding: 1em;
+  }
