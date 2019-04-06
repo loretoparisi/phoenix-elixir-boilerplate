@@ -1,5 +1,6 @@
 defmodule HelloWeb.Router do
   use HelloWeb, :router
+  import Phoenix.LiveView.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -8,6 +9,7 @@ defmodule HelloWeb.Router do
     plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_layout, {HelloWeb.LayoutView, :app}
   end
 
   pipeline :api do
@@ -20,8 +22,10 @@ defmodule HelloWeb.Router do
     get "/", PageController, :index
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
-    #live "/snake", SnakeLive
     get "/snake", PageController, :snake
+
+    live "/pacman", PacmanLive
+
   end
 
   # Other scopes may use custom stacks.

@@ -10,6 +10,10 @@ defmodule HelloWeb.SnakeLive do
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
+    ~w(X 0 0 0 0 X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
+    ~w(X 0 0 0 0 X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
+    ~w(X 0 0 0 0 X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
+    ~w(X 0 0 0 0 X X X X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
@@ -35,11 +39,7 @@ defmodule HelloWeb.SnakeLive do
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
     ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
-    ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
-    ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
-    ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
-    ~w(X 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 X),
-    ~w(X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X),
+    ~w(X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X)
   ]
   @board_rows length(@board)
   @board_cols length(hd(@board))
@@ -54,10 +54,11 @@ defmodule HelloWeb.SnakeLive do
     </div>
     """
   end
+
   def render(%{game_state: :playing} = assigns) do
     ~L"""
     <div class="snake-controls">
-      <form phx-change="update_size" phx-submit="tick" phx-submit-every="<%= @tick %>">
+      <form phx-change="update_settings">
         <select name="tick" onchange="this.blur()">
           <option value="50" <%= if @tick == 50, do: "selected" %>>50</option>
           <option value="100" <%= if @tick == 100, do: "selected" %>>100</option>
@@ -99,7 +100,7 @@ defmodule HelloWeb.SnakeLive do
   end
 
   def mount(_session, socket) do
-    {:ok, new_game(socket)}
+    {:ok, socket |> new_game() |> schedule_tick()}
   end
 
   defp new_game(socket) do
@@ -115,7 +116,7 @@ defmodule HelloWeb.SnakeLive do
       col: 6,
       max_length: @snake_length,
       tail: [{1, 6}],
-      cherries: [],
+      cherries: []
     }
 
     new_socket =
@@ -131,9 +132,16 @@ defmodule HelloWeb.SnakeLive do
     end
   end
 
-  def handle_event("update_size", %{"width" => width}, socket) do
+  def handle_event("update_settings", %{"width" => width, "tick" => tick}, socket) do
     {width, ""} = Integer.parse(width)
-    {:noreply, update_size(socket, width)}
+    {tick, ""} = Integer.parse(tick)
+
+    new_socket =
+      socket
+      |> update_size(width)
+      |> update_tick(tick)
+
+    {:noreply, new_socket}
   end
 
   def handle_event("new_game", _, socket) do
@@ -144,15 +152,23 @@ defmodule HelloWeb.SnakeLive do
     {:noreply, turn(socket, key)}
   end
 
-  def handle_event("tick", %{"tick" => tick}, socket) do
-    {tick, ""} = Integer.parse(tick)
+  def handle_info(:tick, socket) do
     new_socket =
       socket
-      |> assign(:tick, tick)
       |> game_loop()
       |> compact_tail()
+      |> schedule_tick()
 
     {:noreply, new_socket}
+  end
+
+  defp update_tick(socket, tick) when tick <= 1000 and tick >= 50 do
+    assign(socket, :tick, tick)
+  end
+
+  defp schedule_tick(socket) do
+    Process.send_after(self(), :tick, socket.assigns.tick)
+    socket
   end
 
   defp update_size(socket, width) do
@@ -190,6 +206,7 @@ defmodule HelloWeb.SnakeLive do
   end
 
   defp game_loop(%{assigns: %{pending_headings: {:stationary, []}}} = socket), do: socket
+
   defp game_loop(socket) do
     {heading, new_pending} = next_heading(socket)
     {row_before, col_before} = coord(socket)
@@ -214,12 +231,14 @@ defmodule HelloWeb.SnakeLive do
   end
 
   defp advance_tail(socket, {row, row}, {col, col}), do: socket
+
   defp advance_tail(socket, {row, _}, {col, _}) do
     tail = [{row, col} | socket.assigns.tail]
+
     if length(tail) < socket.assigns.max_length do
-      assign(socket, :tail,  tail)
+      assign(socket, :tail, tail)
     else
-      assign(socket, :tail,  Enum.drop(tail, -1))
+      assign(socket, :tail, Enum.drop(tail, -1))
     end
   end
 
@@ -236,7 +255,7 @@ defmodule HelloWeb.SnakeLive do
   defp game_over(socket), do: assign(socket, :game_state, :over)
 
   defp level_up(socket) do
-    new_cherries = Enum.filter(socket.assigns.cherries, (&(&1 !== coord(socket))))
+    new_cherries = Enum.filter(socket.assigns.cherries, &(&1 !== coord(socket)))
 
     socket
     |> assign(:score, socket.assigns.score + 10)
@@ -285,9 +304,11 @@ defmodule HelloWeb.SnakeLive do
 
     assign(socket, :blocks, blocks)
   end
+
   defp wall(x_idx, y_idx, width) do
     %{type: :wall, x: x_idx * width, y: y_idx * width, width: width}
   end
+
   defp empty(x_idx, y_idx, width) do
     %{type: :empty, x: x_idx * width, y: y_idx * width, width: width}
   end
@@ -295,9 +316,11 @@ defmodule HelloWeb.SnakeLive do
   defp place_cherries(socket, count) do
     Enum.reduce(0..(count - 1), socket, fn _, acc -> place_random_cherry(acc) end)
   end
+
   def place_random_cherry(socket) do
     place_cherry(socket, Enum.random(0..(@board_rows - 1)), Enum.random(0..(@board_cols - 1)))
   end
+
   defp place_cherry(socket, row, col) do
     case block(socket, row, col) do
       :empty -> assign(socket, :cherries, [{row, col} | socket.assigns.cherries])
@@ -322,11 +345,21 @@ defmodule HelloWeb.SnakeLive do
       end)
 
     Enum.map(compacted, fn
-      {:horizontal, row, [_|_] = cols} ->
-        %{x: x(Enum.min(cols), width), y: y(row, width), width: length(cols) * width, height: width}
+      {:horizontal, row, [_ | _] = cols} ->
+        %{
+          x: x(Enum.min(cols), width),
+          y: y(row, width),
+          width: length(cols) * width,
+          height: width
+        }
 
-      {:vertical, [_|_] = rows, col} ->
-        %{x: x(col, width), y: y(Enum.min(rows), width), height: length(rows) * width, width: width}
+      {:vertical, [_ | _] = rows, col} ->
+        %{
+          x: x(col, width),
+          y: y(Enum.min(rows), width),
+          height: length(rows) * width,
+          width: width
+        }
     end)
   end
 end
