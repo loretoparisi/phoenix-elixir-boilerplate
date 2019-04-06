@@ -10,12 +10,14 @@ brew install elixir
 mix local.hex
 mix archive.install hex phx_new 1.4.3
 mix phx.new hello --no-ecto
+cd hello
+mix deps.get
+cd assets && npm install && node node_modules/webpack/bin/webpack.js --mode development
 ```
 
 # How to run
 
 ```sh
-cd hello
 mix phx.server
 ```
 
