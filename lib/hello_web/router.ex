@@ -23,8 +23,11 @@ defmodule HelloWeb.Router do
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
     get "/snake", PageController, :snake
+    get "/thermostat", PageController, :thermo
 
     live "/pacman", PacmanLive
+    live "/search", SearchLive
+    live "/thermostat", ThermostatLive
 
   end
 

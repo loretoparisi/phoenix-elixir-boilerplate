@@ -13,4 +13,10 @@ defmodule HelloWeb.PageController do
     |> LiveView.Controller.live_render(HelloWeb.SnakeLive, session: %{})
   end
 
+  def thermo(conn, _) do
+    conn
+    |> put_layout(:game)
+    |> LiveView.Controller.live_render(HelloWeb.ThermostatLive, session: %{})
+  end
+
 end

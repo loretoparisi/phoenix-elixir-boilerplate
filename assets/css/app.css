@@ -2,8 +2,9 @@
 
 @import "./phoenix.css";
 @import "./live_view.css";
-@import "./snake.css";
 @import "./pacman.css";
+@import "./snake.css";
+@import "./thermostat.css";
 
 pre{
   padding: 1em;
